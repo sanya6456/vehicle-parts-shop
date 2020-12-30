@@ -1,10 +1,9 @@
 <template>
-  <!--v-for="(cartItems,cartIndex) in product[productIndex.index[0]].productType[toCartItemIndex.index[cart.eachIndex]]" :key="cartIndex"-->
 
   <div class="text-gray-200 bg-white bg-gray-800 mb-2"
   :class="cart.visibility" v-for="(cartItems,cartIndex) in toCartItems" :key="cartIndex">
-    <div class="inline-grid grid-cols-4 text-white text-sm w-full">
-      <img class="w-auto max-h-24 p-2" :src="cartItems.img" alt="product">
+    <div class="inline-grid grid-cols-5 text-white text-sm w-full">
+      <img class="w-auto max-h-24 p-3" :src="cartItems.img" alt="product">
       <div class="text-xs m-auto">{{cartItems.brand}} {{cartItems.name}}</div>
       <!-- counter, increase, decrease -->
       <div class="flex items-center m-auto">
@@ -24,7 +23,12 @@
           </button>
         </div>
       </div>
-      <div class="mr-2 m-auto">{{cartItems.price}} EUR</div>
+      <div class="mr-0 m-auto">{{formatter.format(cartItems.price*cartItems.total)}}</div>
+      <div class="mr-4 m-auto">
+        <svg class="h-7 w-7 cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" @click="deleteItem(cartIndex)">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </div>
     </div>
   </div>
 </template>
@@ -35,8 +39,7 @@ import { onUpdated, reactive } from 'vue';
 export default {
 name:'Cart',
   setup(){
-    const { product, productIndex,toCartItems }=useSelect();
-
+    const { product, productIndex, toCartItems }=useSelect(); // import useSelect functions
 
     // cart dynamic values
     const cart=reactive({
@@ -45,6 +48,10 @@ name:'Cart',
 
       function productPlus(cartItems){cartItems.total+=1}   // add product by clicking
       function productMinus(cartItems){cartItems.total-=1}  // remove product by clicking
+
+      let formatter = new Intl.NumberFormat('de-DE', {style: 'currency', currency: 'EUR', minimumFractionDigits:0});  // Create number formatter
+
+      function deleteItem(cartIndex){toCartItems.splice(cartIndex,1)} //delete item on click trash icon
     
     onUpdated(()=>{
       //open and close cart
@@ -54,7 +61,7 @@ name:'Cart',
         cart.visibility='hidden';
       }
 
-      //if(toCartItems.total===1){cartItems.target.disabled=true} else{cartItems.target.disabled=false}
+      toCartItems.forEach(e => {if (e.total===0) {e.total=1}});   // we cant go under 1 on total quantity
     })
 
 
@@ -64,7 +71,9 @@ name:'Cart',
       toCartItems,
       cart,
       productPlus,
-      productMinus
+      productMinus,
+      formatter,
+      deleteItem
     }
   }
 }
