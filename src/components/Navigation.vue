@@ -1,5 +1,5 @@
 <template>
-  <nav class="w-full bg-black border-b border-gray-600">
+  <nav class="fixed w-full bg-black border-b border-gray-600">
     <div class="w-full mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
         <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -76,12 +76,13 @@
           <a href="#" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white">Contact Us</a>
       </div>
     </div>
+      <!-- Cart -->
+    <div :class="cart.toggle" class="right-0 bg-black bg-opacity-90 w-screen sm:w-2/3 lg:w-1/2 xl:w-1/3 h-full z-10 overflow-y-auto scrollbar-hide">
+      <Cart/>
+    </div>
   </nav>
 
-  <!-- Cart -->
-  <div :class="cart.toggle" class="absolute right-0 bg-black bg-opacity-90 w-screen sm:w-2/3 lg:w-1/2 xl:w-1/3 min-h-full z-10">
-    <Cart/>
-  </div>
+
 
 </template>
 
@@ -131,7 +132,7 @@ export default {
       if(cart.detectCartClicks%2===0){
         cart.toggle='hidden';
       } else{
-        cart.toggle='';
+        cart.toggle='fixed';
       }
     }
 
@@ -152,5 +153,12 @@ export default {
 <style scoped lang="scss">
   .active-link{
     color: white;
+  }
+  .scrollbar-hide{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar{
+    display: none;
   }
 </style>

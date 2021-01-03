@@ -1,6 +1,6 @@
 <template>
 
-  <div class="text-gray-200 bg-white bg-gray-800 mb-2"
+  <div class="text-gray-200 bg-gray-800 mb-2"
   :class="cart.visibility" v-for="(cartItems,cartIndex) in toCartItems" :key="cartIndex">
     <div class="inline-grid grid-cols-5 text-white text-sm w-full">
       <img class="w-auto max-h-24 p-3" :src="cartItems.img" alt="product">
@@ -31,6 +31,11 @@
       </div>
     </div>
   </div>
+
+  <div class="font-mono text-white bg-gray-800 mb-2 h-1/5">
+      <div class="text-center uppercase text-2xl">total</div> 
+  </div>
+
 </template>
 
 <script>
@@ -39,7 +44,7 @@ import { onUpdated, reactive } from 'vue';
 export default {
 name:'Cart',
   setup(){
-    const { product, productIndex, toCartItems }=useSelect(); // import useSelect functions
+    const { product, productIndex, toCartItems }=useSelect(); // import global functions
 
     // cart dynamic values
     const cart=reactive({
