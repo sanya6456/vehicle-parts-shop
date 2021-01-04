@@ -1,15 +1,10 @@
 import { reactive, toRefs } from 'vue';
 
+const state=reactive({carData:[]});  // LandingPage selected values goes here
 
-// LandingPage selected values goes here (it makes them globaly)
-const state=reactive({
-    carData:[]
-})
-const productIndex=reactive({
-  index:[]
-});
+const productIndex=reactive({index:[]});  // product index stores here
 
-const toCartItems=reactive([]);
+const toCartItems=reactive([],{cartTotal:0});  // cart items stores here
 
 export default function useSelect(){
   // Car brands, models ...

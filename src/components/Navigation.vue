@@ -1,5 +1,5 @@
 <template>
-  <nav class="fixed w-full bg-black border-b border-gray-600">
+  <nav class="fixed w-full bg-black border-b border-gray-600 h-16">
     <div class="w-full mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
         <div class="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -60,7 +60,7 @@
             <svg class="flex-1 w-8 h-8 fill-current text-gray-400 pr-1 pt-1" viewbox="0 0 24 24">
               <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/>
             </svg>
-            <span class="absolute right-0 top-0 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">0</span>
+            <span class="absolute right-0 top-0 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm leading-tight text-center">{{toCartItems.cartTotal}}</span>
           </button>
         </div>
       </div>
@@ -77,7 +77,7 @@
       </div>
     </div>
       <!-- Cart -->
-    <div :class="cart.toggle" class="right-0 bg-black bg-opacity-90 w-screen sm:w-2/3 lg:w-1/2 xl:w-1/3 h-full z-10 overflow-y-auto scrollbar-hide">
+    <div :class="cart.toggle" class="right-0 bottom-0 bg-black bg-opacity-90 w-screen sm:w-2/3 lg:w-1/2 xl:w-1/3 calc-height">
       <Cart/>
     </div>
   </nav>
@@ -88,6 +88,7 @@
 
 <script>
 import Cart from '@/components/Cart.vue';
+import useSelect from '@/modules/cars.js';
 import { reactive } from 'vue';
 
 export default {
@@ -96,6 +97,8 @@ export default {
     Cart
   },
   setup(){
+    const { toCartItems }=useSelect();
+
     // open and close hamburger menu
     function toggleHamburger(){
       var hamburgerContent=document.getElementById('hamburger-menu-content');
@@ -103,6 +106,7 @@ export default {
       var closed=document.getElementById('closed');
       hamburgerContent.classList.toggle('block');
       hamburgerContent.classList.toggle('hidden');
+      
       // change icon. Based on mood
       if(hamburgerContent.classList.contains('block')){
         opened.classList.toggle('hidden')
@@ -120,11 +124,10 @@ export default {
     }
 
     //cart toggle
-    const cart=reactive({
+    let cart=reactive({
       toggle:'hidden',
-      detectCartClicks:0,
+      detectCartClicks:0
     })
-
 
     function toggleCart(){
       cart.detectCartClicks++;
@@ -136,13 +139,13 @@ export default {
       }
     }
 
-
     
     return{
       toggleHamburger,
       openProfile,
       toggleCart,
-      cart
+      cart,
+      toCartItems
     }
   }
   
@@ -154,11 +157,7 @@ export default {
   .active-link{
     color: white;
   }
-  .scrollbar-hide{
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar{
-    display: none;
+  .calc-height{
+    height: calc(100% - 4rem);
   }
 </style>

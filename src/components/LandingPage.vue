@@ -30,7 +30,7 @@
                     </div>
                     <!-- brand -->
                     <form action="#" method="POST" class="mt-6 text-xl w-full text-gray-300">
-                        <select class="form-select bg-black bg-opacity-30 border border-gray-500 block w-full p-3 focus:outline-none" v-model="inputs.brand" @change="brandIndex">
+                        <select required class="form-select bg-black bg-opacity-30 border border-gray-500 block w-full p-3 focus:outline-none" v-model="inputs.brand" @change="brandIndex">
                             <option class="bg-gray-700 text-gray-300" v-for="(brand,brandIndex) in select.brand" :key="brandIndex" :value="brand.name">{{brand.name}}</option>
                             <option :value="inputs.brand" disabled hidden selected>Brand</option>
                         </select>

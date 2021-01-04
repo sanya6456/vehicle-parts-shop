@@ -38,7 +38,6 @@
 <script>
 import useSelect from '@/modules/cars.js';
 import router from '@/router/index.js';
-//import { onUpdated } from 'vue';
 
 export default {
 name:'Products',
@@ -63,13 +62,9 @@ name:'Products',
         } else{
           card.total++;
         }
+        toCartItems.cartTotal=toCartItems.reduce((a,b)=>a+b.total,0);  // sum total items in cart
       }
 
-      /*onUpdated(()=>{
-        if (condition) {
-          
-        }
-      })*/
 
       return{
           product,
