@@ -1,7 +1,7 @@
 <template>
     <div class="lp w-full">
         <div class="flex flex-wrap md:flex-nowrap min-h-screen container mx-auto w-11/12">
-            <!-- col 1 -->
+            <!-- LEFT TITLE -->
             <div class="flex-auto min-h-screen w-full md:min-h-auto text-gray-200 px-6 sm:px-12 md:px-0 sm:mx-6 md:mx-0 text-center md:text-left">
                 <div class="flex flex-col justify-center items-center md:items-start min-h-full font-mono">
                     <div class="uppercase flex text-md sm:text-2xl text-gray-300"><p class="mt-1">featured</p><p class="border border-gray-500 text-red-800 ml-2 p-1">-15%</p></div>
@@ -17,7 +17,7 @@
                     </button>
                 </div>
             </div>
-            <!-- col 2 -->
+            <!-- FORM -->
             <div class="flex-auto min-h-screen w-full md:min-h-auto text-gray-200 font-mono px-10">
                 <div class="flex flex-col justify-center items-center md:items-start min-h-full">
                     <div class="flex justify-between items-center min-w-full">
